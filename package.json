@@ -1,0 +1,19 @@
+{
+  "name": "@palasthotel/wp-fetch",
+  "version": "0.0.1",
+  "description": "Fetch data from a wordpress source.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  },
+  "publishConfig": {
+    "registry": "https://npm.palasthotel.de"
+  }
+}
