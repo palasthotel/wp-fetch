@@ -1,7 +1,7 @@
 {
   "name": "@palasthotel/wp-fetch",
   "version": "0.0.1",
-  "description": "Fetch data from a wordpress source.",
+  "description": "Fetch data from a wordpress source. Works perfectly with headless plugin.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,5 +15,8 @@
   },
   "publishConfig": {
     "registry": "https://npm.palasthotel.de"
+  },
+  "dependencies": {
+    "axios": "^0.26.0"
   }
 }
