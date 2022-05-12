@@ -1,4 +1,4 @@
-import buildHierarchy from "../transformers/hierarchy";
+import {buildHierarchy} from "../transformers";
 
 it("Should return an empty list", ()=>{
     const list: object[] = [];

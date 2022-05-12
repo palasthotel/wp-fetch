@@ -12,33 +12,29 @@ import {wpFetchGet} from "./base";
 // posts
 // --------------------------------------------------------------------------------
 export const wpFetchPosts = async (
-    requestArgs: GetPostsRequestArgs
+    wordpressUrl: string,
+    requestArgs: GetPostsRequestArgs = {}
 ): Promise<PostsResponse> => {
-    const {
-        wordpressUrl,
-        path = "/wp/v2/{type}",
-        args = {}
-    } = requestArgs
 
-    const  {
+    const {
+        type = "posts",
         page = 1,
         limit = 10,
-        type = "posts",
-    } = args;
+    } = requestArgs;
 
-    const baseUrl = path.replace("{type}", type);
-    const queryString = `?page=${page}&posts_per_page=${limit}`
+    const baseUrl = "/wp/v2/"+type;
+    const queryString = `?page=${page}&posts_per_page=${limit}`;
 
-    const response = await wpFetchGet({
+    const response = await wpFetchGet<PostResponse[]>({
         wordpressUrl,
         path: `${baseUrl}${queryString}`,
     });
-    if (response == false || !Array.isArray(response.data)) {
+    if (response == null || !Array.isArray(response?.data)) {
         return {
             posts: [],
             total: 0,
             totalPages: 0,
-        };
+        } as PostsResponse;
     }
 
     return {
@@ -49,46 +45,38 @@ export const wpFetchPosts = async (
 }
 
 export const wpFetchPostById = async (
+    wordpressUrl: string,
     requestArgs: GetPostByIdRequestArgs
 ): Promise<PostResponse | null> => {
     const {
-        wordpressUrl,
-        path = "/wp/v2/{type}/{id}",
-        args: {
-            id,
-            type = "posts",
-        }
+        id,
+        type = "posts",
     } = requestArgs;
-    const response = await wpFetchGet({
+    const response = await wpFetchGet<PostResponse>({
         wordpressUrl,
-        path: path
-            .replace("{type}", type)
-            .replace("{id}", String(id)),
+        path: `/wp/v2/${type}/${id}`,
     });
 
-    return response != false ? response.data as PostResponse : null;
+    return response?.data ?? null;
 }
 
 export const wpFetchPostsBySlug = async (
+    wordpressUrl: string,
     args: GetPostBySlugRequestArgs
 ): Promise<PostsResponse> => {
     const {
-        wordpressUrl,
-        path = "/wp/v2/{type}",
-        args: {
-            slug,
-            type = "posts",
-        }
+        slug,
+        type = "posts",
     } = args;
     const response = await wpFetchGet({
         wordpressUrl,
-        path: path.replace("{type}", type),
+        path: `/wp/v2/${type}`,
         args: {
             slug: slug,
         }
     });
 
-    if (response == false || !Array.isArray(response.data)) {
+    if (response == null || !Array.isArray(response.data)) {
         return {
             posts: [],
             total: 0,

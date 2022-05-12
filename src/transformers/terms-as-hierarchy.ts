@@ -1,7 +1,7 @@
 import {TermResponse} from "../@types";
-import buildHierarchy from "./hierarchy";
+import {buildHierarchy} from "./index";
 
-export default function termsAsHierarchy(
+export function termsAsHierarchy(
     terms: TermResponse[],
 ){
     return buildHierarchy<TermResponse>(

@@ -1,7 +1,7 @@
 import {MenuItemResponse} from "../@types";
-import buildHierarchy from "./hierarchy";
+import {buildHierarchy} from "./index";
 
-export default function menuAsHierarchy(
+export function menuAsHierarchy(
     menu: MenuItemResponse[],
 ){
     return buildHierarchy<MenuItemResponse>(

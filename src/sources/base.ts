@@ -1,13 +1,13 @@
 import axios from "axios";
 
-import {GetRequestArgs, GetResponse} from "../@types";
+import {GetRequest, GetResponse} from "../@types";
 
-export const wordPressGetJsonUrl = (request: GetRequestArgs): string => {
+export const wordPressGetJsonUrl = (request: GetRequest): string => {
     const {wordpressUrl, path} = request;
     return `${wordpressUrl}/wp-json${path}`;
 }
 
-export const wpFetchGet = async (request: GetRequestArgs) => {
+export const wpFetchGet = async <T>(request: GetRequest): Promise<GetResponse<T>|null> => {
     try {
         const url = wordPressGetJsonUrl(request);
         const response = await axios({
@@ -15,7 +15,8 @@ export const wpFetchGet = async (request: GetRequestArgs) => {
             url,
             params: request.args,
         });
-        const result: GetResponse = {
+        if (response.status !== 200) return null;
+        const result: GetResponse<T> = {
             data: response.data,
         };
         if (response.headers["x-wp-total"] != undefined) {
@@ -25,7 +26,6 @@ export const wpFetchGet = async (request: GetRequestArgs) => {
 
         return result;
     } catch (e) {
-        console.error(e);
-        return false;
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 import {Hierarchy, PostResponse} from "../@types";
-import buildHierarchy from "./hierarchy";
+import {buildHierarchy} from "./index";
 
-export default function postsAsHierarchy(
+export function postsAsHierarchy(
     posts: PostResponse[]
 ): Hierarchy<PostResponse>[] {
     return buildHierarchy<PostResponse>(

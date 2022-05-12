@@ -1,35 +1,34 @@
-import {GetMenuRequestArgs, GetRequestArgs, MenuItemResponse, MenuSlug} from "../@types";
-import {isArrayOfMenuItemResponse, isArrayOfMenuSlugs} from "../@types/type-guard";
+import {GetMenuRequestArgs, MenuItemResponse, MenusResponse} from "../@types";
+import {isArrayOfMenuItemResponse, isMenusResponse} from "../type-guard";
 import {wpFetchGet} from "./base";
 
 export const wpFetchMenus = async (
-    {
+    wordpressUrl: string,
+): Promise<MenusResponse|null> => {
+    const response = await wpFetchGet<MenusResponse>({
         wordpressUrl,
-        path = "/headless/v1/menus",
-    }: GetRequestArgs
-): Promise<MenuSlug[]> => {
-    const response = await wpFetchGet({
-        wordpressUrl,
-        path,
+        path: `/headless/v1/menus`,
     });
-    return response !== false && isArrayOfMenuSlugs(response.data) ? response.data : [];
+
+    if(response == null || !isMenusResponse(response.data)){
+        return null;
+    }
+
+    return response.data;
 }
 
 export const wpFetchMenu = async (
+    wordpressUrl: string,
     requestArgs: GetMenuRequestArgs
-): Promise<MenuItemResponse[] | false> => {
+): Promise<MenuItemResponse[] | null> => {
 
     const {
-        wordpressUrl,
-        path = "/headless/v1/menus/{slug}",
-        args: {
-            slug
-        }
+        slug
     } = requestArgs;
 
     const response = await wpFetchGet({
         wordpressUrl: wordpressUrl,
-        path: path.replace("{slug}", slug),
+        path: `/headless/v1/menus/${slug}`,
     });
-    return response !== false && isArrayOfMenuItemResponse(response.data) ? response.data : false;
+    return response !== null && isArrayOfMenuItemResponse(response.data) ? response.data : null;
 }

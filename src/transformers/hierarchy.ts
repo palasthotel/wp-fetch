@@ -1,6 +1,6 @@
 import {Hierarchy} from "../@types";
 
-export default function buildHierarchy<T>(
+export function buildHierarchy<T>(
     items: T[],
     getId: (item: T) => number,
     getParentId: ( item:T ) => false | number
