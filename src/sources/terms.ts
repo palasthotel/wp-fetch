@@ -4,7 +4,7 @@ import {wpFetchGet} from "./base";
 
 export const wpFetchTerms = async (
     wordpressUrl: string,
-    args: GetTermsRequestArgs
+    args: GetTermsRequestArgs = {}
 ): Promise<TermResponse[]> => {
     const {
         taxonomy = "categories",
