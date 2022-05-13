@@ -6,46 +6,14 @@ export const wpFetchTerms = async (
     wordpressUrl: string,
     args: GetTermsRequestArgs = {}
 ): Promise<TermsResponse> => {
-    const {
-        taxonomy = "categories",
-        search,
-        include = [],
-        exclude = [],
-        hide_empty = true,
-        page = 1,
-        per_page = 100,
-        order = "asc",
-        orderby = "name",
-        post,
-        slug,
-    } = args;
-    const query = [
-        "hide_empty=" + (hide_empty ? "1" : "0"),
-        `per_page=${per_page}`,
-        `page=${page}`,
-        `order=${order}`,
-        `orderby=${orderby}`,
-    ];
-    if (Array.isArray(include) && include.length > 0) {
-        query.push(`include=${include.join(",")}`);
-    }
-    if (Array.isArray(exclude) && exclude.length > 0) {
-        query.push(`exclude=${exclude.join(",")}`);
-    }
-    if(typeof search == "string" && search.length > 0){
-        query.push(`search=${search}`);
-    }
-    if(post !=  undefined){
-        query.push(`post=${post}`);
-    }
-    if(slug != undefined){
-        query.push(`slug=${slug}`);
-    }
-    const basePath = `/wp/v2/${taxonomy}`;
-    const queryString = query.length > 0 ? "?" + query.join("&") : "";
+
+    const taxonomy = args.taxonomy;
+    delete args.taxonomy;
+
     const response = await wpFetchGet<TermResponse[]>({
         wordpressUrl,
-        path: `${basePath}${queryString}`
+        path: `/wp/v2/${taxonomy}`,
+        args
     });
 
     if(response == null || !isArrayOfTermResponse(response?.data) ){
