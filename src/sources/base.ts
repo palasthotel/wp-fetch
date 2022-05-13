@@ -10,9 +10,7 @@ export const wordPressGetJsonUrl = (request: GetRequest): string => {
 export const wpFetchGet = async <T>(request: GetRequest): Promise<GetResponse<T>|null> => {
     try {
         const url = wordPressGetJsonUrl(request);
-        const response = await axios({
-            method: "GET",
-            url,
+        const response = await axios.get( url,{
             params: request.args,
         });
         if (response.status !== 200) return null;

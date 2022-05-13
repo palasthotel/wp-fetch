@@ -2,34 +2,101 @@ import * as fs from "fs";
 import {wpFetchPostById, wpFetchPosts, wpFetchPostsBySlug} from "../sources/posts";
 import {buildHierarchy} from "../transformers";
 import {PostResponse} from "../@types";
+import axios, {AxiosRequestConfig} from "axios";
 
+type AxiosTestInterceptor = (config: AxiosRequestConfig) => void
 
+let interceptor: AxiosTestInterceptor|null = null
+const setInterceptor = (fn: AxiosTestInterceptor) => {
+    interceptor = fn;
+}
+const resetInterceptor = () => {
+    interceptor = null;
+}
 
-describe('Fetch posts', function () {
+axios.interceptors.request.use((config) => {
+    interceptor?.(config);
+    return config;
+})
 
-    const wordpressTestUrl = "http://local.wp.palasthotel.de:8080/";
+describe('wpFetchPosts', function () {
 
-    it("Should find some posts", async () => {
-        const posts = await wpFetchPosts(wordpressTestUrl);
-        expect(posts.total).toBeGreaterThan(0);
-    })
+    beforeEach(() => {
+        resetInterceptor();
+    });
 
+    describe("when API call is successful", () => {
 
+        const url = "https://digitale-pracht.de";
+        it("Should should return posts", async () => {
+
+            let requestUrl = ""
+            setInterceptor((config) => {
+                requestUrl = config.url ?? "";
+            });
+            const response = await wpFetchPosts(url);
+            expect(requestUrl).toBe(`${url}/wp-json/wp/v2/posts`);
+            expect(response.total).toBeGreaterThan(0);
+        });
+        it("Should should return posts by category", async () => {
+
+            let requestUrl = ""
+            let params = {};
+            setInterceptor((config) => {
+                requestUrl = config.url ?? "";
+                params = config.params;
+            });
+            const response = await wpFetchPosts(url, {
+                categories: 1
+            });
+            expect(requestUrl).toBe(`${url}/wp-json/wp/v2/posts`);
+            expect(params).toEqual({
+                page: 1,
+                per_page: 10,
+                categories: 1,
+            });
+            expect(response.total).toBeGreaterThan(0);
+        });
+        it("Should should return posts by tags", async () => {
+
+            let requestUrl = ""
+            let params = {};
+            setInterceptor((config) => {
+                requestUrl = config.url ?? "";
+                params = config.params;
+            });
+            const response = await wpFetchPosts(url, {
+                tags: [25, 105]
+            });
+            expect(requestUrl).toBe(`${url}/wp-json/wp/v2/posts`);
+            expect(params).toEqual({
+                page: 1,
+                per_page: 10,
+                tags: [25, 105],
+            });
+            expect(response.total).toBeGreaterThan(0);
+            for(let post of response.posts){
+                expect(post.tags.includes(25) || post.tags.includes(105)).toBeTruthy();
+            }
+        });
+    });
+
+    const url = "https://digitale-pracht.de";
     it("Should find the page by id", async () => {
-        const post = await wpFetchPostById(wordpressTestUrl, {
-            id: 2,
+        const post = await wpFetchPostById(url, {
+            id: 565,
             type: "pages"
         });
         expect(post).not.toBeNull();
     });
 
     it("Should find the page by slug", async () => {
-        const posts = await wpFetchPostsBySlug(wordpressTestUrl, {
-            slug: "sample-page",
+        const posts = await wpFetchPostsBySlug(url, {
+            slug: "impressum",
             type: "pages"
         });
         expect(posts.total).toBeGreaterThanOrEqual(1);
-        expect(posts.posts[0]?.title?.rendered).toBe("Sample Page");
+        expect(posts.posts[0]?.title?.rendered).toBe("Impressum");
     });
 
 });

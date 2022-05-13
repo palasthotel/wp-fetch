@@ -2,14 +2,34 @@ import {
     AuthorId,
     PostId,
     PostSlug,
-    PostType,
+    PostType, TermId,
 } from "./index";
 
 
 export type GetPostsRequestArgs = {
-    type?: string
+    type?: PostType
     page?: number
-    limit?: number
+    per_page?: number
+    offset?: number
+    search?: string
+    after?: string
+    author?: string
+    author_exclude?: string | string[]
+    before?: string
+    exclude?: PostId | PostId[]
+    include?: PostId | PostId[]
+    order?: "asc" | "desc"
+    orderby?: "date" | "author" | "id" | "include" |
+        "modified" | "parent" | "relevance" | "slug" |
+        "include_slugs" | "title"
+    slug?: string
+    status?: string
+    tax_relation?: "AND" | "OR"
+    categories?: TermId | TermId[]
+    categories_exclude?: TermId | TermId[]
+    tags?: TermId|TermId[]
+    tags_exclude?: TermId|TermId[]
+    sticky?: boolean
 }
 
 export type PostsResponse = {
@@ -65,8 +85,8 @@ export type PostResponse = {
     }
     permalink: string | false
 
-    categories?: number[]
-    tags?: number[]
+    categories: number[]
+    tags: number[]
 
     featured_media_url?: string | false
 

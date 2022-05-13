@@ -11,23 +11,27 @@ import {wpFetchGet} from "./base";
 // --------------------------------------------------------------------------------
 // posts
 // --------------------------------------------------------------------------------
+const defaultFetchPostsArgs: GetPostsRequestArgs = {
+    type: "posts",
+    page: 1,
+    per_page: 10,
+}
 export const wpFetchPosts = async (
     wordpressUrl: string,
     requestArgs: GetPostsRequestArgs = {}
 ): Promise<PostsResponse> => {
 
-    const {
-        type = "posts",
-        page = 1,
-        limit = 10,
-    } = requestArgs;
-
-    const baseUrl = "/wp/v2/"+type;
-    const queryString = `?page=${page}&posts_per_page=${limit}`;
+    const args = {
+        ...defaultFetchPostsArgs,
+        ...requestArgs,
+    };
+    const type = args.type;
+    delete args.type;
 
     const response = await wpFetchGet<PostResponse[]>({
         wordpressUrl,
-        path: `${baseUrl}${queryString}`,
+        path: `/wp/v2/${type}`,
+        args,
     });
     if (response == null || !Array.isArray(response?.data)) {
         return {
