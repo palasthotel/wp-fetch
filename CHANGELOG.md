@@ -1,5 +1,9 @@
 # Releases
 
+## [0.1.4] - 2022-05-13
+
+- fixed array request args to string
+
 ## [0.1.3] - 2022-05-13
 
 - Added more wpFetchPosts args

@@ -66,19 +66,39 @@ describe('wpFetchPosts', function () {
                 params = config.params;
             });
             const response = await wpFetchPosts(url, {
-                tags: [25, 105]
+                tags: "25, 105",
             });
             expect(requestUrl).toBe(`${url}/wp-json/wp/v2/posts`);
             expect(params).toEqual({
                 page: 1,
                 per_page: 10,
-                tags: [25, 105],
+                tags: "25, 105",
             });
             expect(response.total).toBeGreaterThan(0);
             for(let post of response.posts){
                 expect(post.tags.includes(25) || post.tags.includes(105)).toBeTruthy();
             }
         });
+
+        it("Should include single post by id", async () => {
+            let requestUrl = ""
+            let params = {};
+            setInterceptor((config) => {
+                requestUrl = config.url ?? "";
+                params = config.params;
+            });
+            const response = await wpFetchPosts(url, {
+                include: "2339, 2"
+            });
+            expect(requestUrl).toBe(`${url}/wp-json/wp/v2/posts`);
+            expect(params).toEqual({
+                page: 1,
+                per_page: 10,
+                include: "2339, 2",
+            });
+            expect(response.posts.length).toBe(1);
+            expect(response.posts[0].title.rendered).toBe("Urlaubsarchitektur");
+        })
     });
 
     const url = "https://digitale-pracht.de";

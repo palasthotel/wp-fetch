@@ -14,10 +14,10 @@ export type GetPostsRequestArgs = {
     search?: string
     after?: string
     author?: string
-    author_exclude?: string | string[]
+    author_exclude?: string
     before?: string
-    exclude?: PostId | PostId[]
-    include?: PostId | PostId[]
+    exclude?: PostId | string
+    include?: PostId | string
     order?: "asc" | "desc"
     orderby?: "date" | "author" | "id" | "include" |
         "modified" | "parent" | "relevance" | "slug" |
@@ -25,10 +25,10 @@ export type GetPostsRequestArgs = {
     slug?: string
     status?: string
     tax_relation?: "AND" | "OR"
-    categories?: TermId | TermId[]
-    categories_exclude?: TermId | TermId[]
-    tags?: TermId|TermId[]
-    tags_exclude?: TermId|TermId[]
+    categories?: TermId | string
+    categories_exclude?: TermId | string
+    tags?: string
+    tags_exclude?: string
     sticky?: boolean
 }
 

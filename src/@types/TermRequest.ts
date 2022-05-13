@@ -25,8 +25,8 @@ export type GetTermRequestArgs = {
 export type GetTermsRequestArgs = {
     taxonomy?: TaxonomySlug
     search?: string
-    include?: TermId[]
-    exclude?: TermId[]
+    include?: TermId | string
+    exclude?: TermId | string
     hide_empty?: boolean
     page?: number
     per_page?: number
