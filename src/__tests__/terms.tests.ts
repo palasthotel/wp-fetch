@@ -6,18 +6,18 @@ describe('fetch terms', () => {
 
     it("categories", async () => {
 
-        const terms = await wpFetchTerms(wordpressTestUrl,{
+        const response = await wpFetchTerms(wordpressTestUrl,{
             taxonomy:'categories'
 
         });
-        expect(terms.length).toBeGreaterThan(0);
+        expect(response.terms.length).toBeGreaterThan(0);
     });
 
     it("Should find some tags", async () => {
-        const terms = await wpFetchTerms(wordpressTestUrl,{
+        const response = await wpFetchTerms(wordpressTestUrl,{
             taxonomy: "tags"
         });
-        expect(terms.length).toBeGreaterThan(0);
+        expect(response.terms.length).toBeGreaterThan(0);
     })
 
     // it("Project specific", async () => {

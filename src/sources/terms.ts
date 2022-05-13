@@ -1,11 +1,11 @@
-import {GetTermRequestArgs, GetTermsRequestArgs, TermResponse} from "../@types";
+import {GetTermRequestArgs, GetTermsRequestArgs, TermResponse, TermsResponse} from "../@types";
 import {isArrayOfTermResponse, isTermResponse} from "../type-guard";
 import {wpFetchGet} from "./base";
 
 export const wpFetchTerms = async (
     wordpressUrl: string,
     args: GetTermsRequestArgs = {}
-): Promise<TermResponse[]> => {
+): Promise<TermsResponse> => {
     const {
         taxonomy = "categories",
         search,
@@ -49,10 +49,18 @@ export const wpFetchTerms = async (
     });
 
     if(response == null || !isArrayOfTermResponse(response?.data) ){
-        return [];
+        return {
+            terms: [],
+            total: 0,
+            totalPages: 0,
+        };
     }
 
-    return response.data;
+    return {
+        terms: response.data,
+        total: response.xWPTotal ?? 0,
+        totalPages: response.xWPTotalPages ?? 0,
+    };
 }
 
 export const wpFetchTerm = async (

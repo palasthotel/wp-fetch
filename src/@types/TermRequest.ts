@@ -1,8 +1,10 @@
-import {
-    PostId,
-    TaxonomySlug,
-    TermId,
-} from "./index";
+import {PostId, TaxonomySlug, TermId,} from "./index";
+
+export type TermsResponse = {
+    terms: TermResponse[]
+    total: number
+    totalPages: number
+}
 
 export type TermResponse = {
     id: TermId
