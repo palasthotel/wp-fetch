@@ -1,5 +1,9 @@
 # Releases
 
+## [0.1.5] - 2022-05-13
+
+- terms request bugfix
+
 ## [0.1.4] - 2022-05-13
 
 - fixed array request args to string
