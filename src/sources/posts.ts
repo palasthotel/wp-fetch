@@ -16,10 +16,10 @@ const defaultFetchPostsArgs: GetPostsRequestArgs = {
     page: 1,
     per_page: 10,
 }
-export const wpFetchPosts = async (
+export const wpFetchPosts = async <T extends PostResponse>(
     wordpressUrl: string,
     requestArgs: GetPostsRequestArgs = {}
-): Promise<PostsResponse> => {
+): Promise<PostsResponse<T>> => {
 
     const args = {
         ...defaultFetchPostsArgs,
@@ -28,7 +28,7 @@ export const wpFetchPosts = async (
     const type = args.type;
     delete args.type;
 
-    const response = await wpFetchGet<PostResponse[]>({
+    const response = await wpFetchGet<T[]>({
         wordpressUrl,
         path: `/wp/v2/${type}`,
         args,
@@ -38,20 +38,20 @@ export const wpFetchPosts = async (
             posts: [],
             total: 0,
             totalPages: 0,
-        } as PostsResponse;
+        };
     }
 
     return {
-        posts: response.data,
+        posts: response.data as T[],
         total: response.xWPTotal ?? 0,
         totalPages: response.xWPTotalPages ?? 0
     }
 }
 
-export const wpFetchPostById = async (
+export const wpFetchPostById = async <T extends PostResponse | null>(
     wordpressUrl: string,
     requestArgs: GetPostByIdRequestArgs
-): Promise<PostResponse | null> => {
+): Promise<T | null> => {
     const {
         id,
         type = "posts",
@@ -61,18 +61,18 @@ export const wpFetchPostById = async (
         path: `/wp/v2/${type}/${id}`,
     });
 
-    return response?.data ?? null;
+    return (response?.data as T ) ?? null;
 }
 
-export const wpFetchPostsBySlug = async (
+export const wpFetchPostsBySlug = async <T extends PostResponse>(
     wordpressUrl: string,
     args: GetPostBySlugRequestArgs
-): Promise<PostsResponse> => {
+): Promise<PostsResponse<T>> => {
     const {
         slug,
         type = "posts",
     } = args;
-    const response = await wpFetchGet({
+    const response = await wpFetchGet<T>({
         wordpressUrl,
         path: `/wp/v2/${type}`,
         args: {

@@ -1,7 +1,7 @@
 import {PostId, TaxonomySlug, TermId,} from "./index";
 
-export type TermsResponse = {
-    terms: TermResponse[]
+export type TermsResponse<T extends TermResponse> = {
+    terms: T[]
     total: number
     totalPages: number
 }
@@ -14,7 +14,7 @@ export type TermResponse = {
     slug: string
     taxonomy: TaxonomySlug
     parent?: TermId
-    meta: Record<string, string>
+    meta: Record<string, string|string[]|number|number[]>
 }
 
 export type GetTermRequestArgs = {

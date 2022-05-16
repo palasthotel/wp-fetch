@@ -32,8 +32,8 @@ export type GetPostsRequestArgs = {
     sticky?: boolean
 }
 
-export type PostsResponse = {
-    posts: PostResponse[]
+export type PostsResponse<T extends PostResponse> = {
+    posts: T[]
     total: number
     totalPages: number
 }
@@ -46,6 +46,7 @@ export type GetPostByIdRequestArgs = {
 export type GetPostBySlugRequestArgs = {
     slug: PostSlug
     type?: PostType
+
 }
 
 export type PostResponse = {
@@ -80,9 +81,7 @@ export type PostResponse = {
     sticky: boolean
     template: string
     format: string
-    meta: {
-        [key: string]: string
-    }
+    meta: Record<string, string|string[]|number|number[]>
     permalink: string | false
 
     categories: number[]

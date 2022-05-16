@@ -2,10 +2,10 @@ import {GetTermRequestArgs, GetTermsRequestArgs, TermResponse, TermsResponse} fr
 import {isArrayOfTermResponse, isTermResponse} from "../type-guard";
 import {wpFetchGet} from "./base";
 
-export const wpFetchTerms = async (
+export const wpFetchTerms = async <T extends TermResponse>(
     wordpressUrl: string,
     args: GetTermsRequestArgs = {}
-): Promise<TermsResponse> => {
+): Promise<TermsResponse<T>> => {
 
     const taxonomy = args.taxonomy;
     delete args.taxonomy;
@@ -25,16 +25,16 @@ export const wpFetchTerms = async (
     }
 
     return {
-        terms: response.data,
+        terms: response.data as T[],
         total: response.xWPTotal ?? 0,
         totalPages: response.xWPTotalPages ?? 0,
     };
 }
 
-export const wpFetchTerm = async (
+export const wpFetchTerm = async <T extends TermResponse>(
     wordpressUrl: string,
     args: GetTermRequestArgs
-): Promise<TermResponse | null> => {
+): Promise<T | null> => {
     const {
         id,
         taxonomy = "categories",
@@ -44,5 +44,5 @@ export const wpFetchTerm = async (
         path: `/wp/v2/${taxonomy}/${id}`,
     });
 
-    return response !== null && isTermResponse(response.data) ? response.data : null;
+    return response !== null && isTermResponse(response.data) ? response.data as T : null;
 }

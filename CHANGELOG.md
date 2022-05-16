@@ -1,5 +1,8 @@
 # Releases
 
+## [0.1.6] - 2022-05-16
+- generic response types
+
 ## [0.1.5] - 2022-05-13
 
 - terms request bugfix
