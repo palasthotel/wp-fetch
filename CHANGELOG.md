@@ -1,5 +1,8 @@
 # Releases
 
+## [0.1.7] - 2022-05-18
+- expose axios instance for configuration form outside
+
 ## [0.1.6] - 2022-05-16
 - generic response types
 
