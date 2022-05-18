@@ -1,6 +1,10 @@
-import axios from "axios";
+import axios, {AxiosInstance} from "axios";
 
 import {GetRequest, GetResponse} from "../@types";
+
+const instance = axios.create();
+
+export const getAxios = (): AxiosInstance => instance;
 
 export const wordPressGetJsonUrl = (request: GetRequest): string => {
     const {wordpressUrl, path} = request;
@@ -10,7 +14,7 @@ export const wordPressGetJsonUrl = (request: GetRequest): string => {
 export const wpFetchGet = async <T>(request: GetRequest): Promise<GetResponse<T>|null> => {
     try {
         const url = wordPressGetJsonUrl(request);
-        const response = await axios.get( url,{
+        const response = await getAxios().get( url,{
             params: request.args,
         });
         if (response.status !== 200) return null;
