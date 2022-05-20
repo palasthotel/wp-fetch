@@ -2,7 +2,6 @@
 
 ## [0.1.8] - 2022-05-18
 - added wpFetchUsers 
-- added wpFetchAuthors
 - added wpFetchUser
 
 ## [0.1.7] - 2022-05-18

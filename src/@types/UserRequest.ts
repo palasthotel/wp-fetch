@@ -1,5 +1,4 @@
 import {UserId, UserSlug} from "./general";
-import {PostResponse} from "./PostRequest";
 
 export type GetUsersRequestArgs = {
     page?: number
@@ -12,7 +11,6 @@ export type GetUsersRequestArgs = {
     orderby?: "id"| "include"| "name"| "registered_date"| "slug" | "include_slugs"| "email" | "url"
     slug?: string
     roles?: string
-    who?: "authors"
 }
 
 export type UsersResponse<T extends UserResponse> = {
