@@ -1,4 +1,4 @@
-export {getAxios, wpFetchGet} from './sources/base'
+export {setAxios, getAxios, wpFetchGet} from './sources/base'
 export {wpFetchPosts, wpFetchPostsBySlug, wpFetchPostById} from './sources/posts';
 export {wpFetchTerms, wpFetchTerm} from './sources/terms';
 export {wpFetchMenus, wpFetchMenu} from './sources/menus';

@@ -2,9 +2,19 @@ import axios, {AxiosInstance} from "axios";
 
 import {GetRequest, GetResponse} from "../@types";
 
-const instance = axios.create();
 
-export const getAxios = (): AxiosInstance => instance;
+let instance:AxiosInstance|null = null;
+
+export const setAxios = (axios: AxiosInstance) => {
+    instance = axios;
+}
+
+export const getAxios = (): AxiosInstance => {
+    if(instance == null){
+        instance = axios.create();
+    }
+    return instance;
+};
 
 export const wordPressGetJsonUrl = (request: GetRequest): string => {
     const {wordpressUrl, path} = request;

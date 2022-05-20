@@ -2,7 +2,8 @@ import * as fs from "fs";
 import {wpFetchPostById, wpFetchPosts, wpFetchPostsBySlug} from "../sources/posts";
 import {buildHierarchy} from "../transformers";
 import {PostResponse} from "../@types";
-import axios, {AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
+import {getAxios} from "../sources/base";
 
 type AxiosTestInterceptor = (config: AxiosRequestConfig) => void
 
@@ -14,7 +15,7 @@ const resetInterceptor = () => {
     interceptor = null;
 }
 
-axios.interceptors.request.use((config) => {
+getAxios().interceptors.request.use((config) => {
     interceptor?.(config);
     return config;
 })

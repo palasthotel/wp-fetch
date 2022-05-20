@@ -1,7 +1,9 @@
 export type PostId = number
 export type PostSlug = string
 export type PostType = string
-export type AuthorId = number
+export type UserId = number
+export type UserSlug = string
+export type AuthorId = UserId
 export type MenuSlug = string
 export type TermId = number
 export type TaxonomySlug = string
