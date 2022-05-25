@@ -1,4 +1,11 @@
-export {setAxios, getAxios, wpFetchGet} from './sources/base'
+export {
+    wpFetchGet,
+    useRequest,
+    useResponse,
+    setHeader,
+    ejectRequest,
+    ejectResponse,
+} from './sources/base'
 export {wpFetchPosts, wpFetchPostsBySlug, wpFetchPostById} from './sources/posts';
 export {wpFetchRevisions, wpFetchRevision} from './sources/revisions';
 export {wpFetchTerms, wpFetchTerm} from './sources/terms';

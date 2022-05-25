@@ -2,28 +2,13 @@ import * as fs from "fs";
 import {wpFetchPostById, wpFetchPosts, wpFetchPostsBySlug} from "../sources/posts";
 import {buildHierarchy} from "../transformers";
 import {PostResponse} from "../@types";
-import {AxiosRequestConfig} from "axios";
-import {getAxios} from "../sources/base";
-
-type AxiosTestInterceptor = (config: AxiosRequestConfig) => void
-
-let interceptor: AxiosTestInterceptor|null = null
-const setInterceptor = (fn: AxiosTestInterceptor) => {
-    interceptor = fn;
-}
-const resetInterceptor = () => {
-    interceptor = null;
-}
-
-getAxios().interceptors.request.use((config) => {
-    interceptor?.(config);
-    return config;
-})
+import {ejectRequest, useRequest} from "../sources/base";
 
 describe('wpFetchPosts', function () {
 
-    beforeEach(() => {
-        resetInterceptor();
+    let id = 0;
+    afterEach(() => {
+        ejectRequest(id);
     });
 
     describe("when API call is successful", () => {
@@ -32,8 +17,9 @@ describe('wpFetchPosts', function () {
         it("Should should return posts", async () => {
 
             let requestUrl = ""
-            setInterceptor((config) => {
+            id = useRequest((config) => {
                 requestUrl = config.url ?? "";
+               return config;
             });
             const response = await wpFetchPosts(url);
             expect(requestUrl).toBe(`${url}/wp-json/wp/v2/posts`);
@@ -43,9 +29,10 @@ describe('wpFetchPosts', function () {
 
             let requestUrl = ""
             let params = {};
-            setInterceptor((config) => {
+            id = useRequest((config) => {
                 requestUrl = config.url ?? "";
                 params = config.params;
+                return config;
             });
             const response = await wpFetchPosts(url, {
                 categories: 1
@@ -62,9 +49,10 @@ describe('wpFetchPosts', function () {
 
             let requestUrl = ""
             let params = {};
-            setInterceptor((config) => {
+            id = useRequest((config) => {
                 requestUrl = config.url ?? "";
                 params = config.params;
+                return config;
             });
             const response = await wpFetchPosts(url, {
                 tags: "25, 105",
@@ -84,9 +72,10 @@ describe('wpFetchPosts', function () {
         it("Should include single post by id", async () => {
             let requestUrl = ""
             let params = {};
-            setInterceptor((config) => {
+            id = useRequest((config) => {
                 requestUrl = config.url ?? "";
                 params = config.params;
+                return config;
             });
             const response = await wpFetchPosts(url, {
                 include: "2339, 2"

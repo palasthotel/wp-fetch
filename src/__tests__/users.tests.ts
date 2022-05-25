@@ -1,26 +1,12 @@
-import {AxiosRequestConfig} from "axios";
 import {wpFetchUsers} from "../sources/users";
-import {getAxios} from "../sources/base";
+import {ejectRequest, useRequest} from "../sources/base";
 
-type AxiosTestInterceptor = (config: AxiosRequestConfig) => void
-
-let interceptor: AxiosTestInterceptor|null = null
-const setInterceptor = (fn: AxiosTestInterceptor) => {
-    interceptor = fn;
-}
-const resetInterceptor = () => {
-    interceptor = null;
-}
-
-getAxios().interceptors.request.use((config) => {
-    interceptor?.(config);
-    return config;
-})
 
 describe('wpFetchUsers', function () {
 
-    beforeEach(() => {
-        resetInterceptor();
+    let id  = 0;
+    afterEach(() => {
+        ejectRequest(id);
     });
 
     describe("when API call is successful", () => {
@@ -29,8 +15,9 @@ describe('wpFetchUsers', function () {
         it("Should should return users", async () => {
 
             let requestUrl = ""
-            setInterceptor((config) => {
+            useRequest((config) => {
                 requestUrl = config.url ?? "";
+                return config;
             });
             const response = await wpFetchUsers(url);
             expect(requestUrl).toBe(`${url}/wp-json/wp/v2/users`);

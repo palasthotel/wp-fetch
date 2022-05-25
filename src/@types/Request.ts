@@ -1,3 +1,14 @@
+import {AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse} from "axios";
+
+export type HeadlessConnection = AxiosInstance
+export type HeadlessRequestConfig = AxiosRequestConfig & {
+    url?: string
+    method?: string
+    params?: any
+    headers?: AxiosRequestHeaders
+    auth?: Authentication
+};
+export type HeadlessResponse = AxiosResponse
 
 export type Authentication = {
     username: string
@@ -13,7 +24,7 @@ export type WordPressUrl = string | WordPressAuthenticatedUrl
 
 export type GetRequest = {
     wordpressUrl: WordPressUrl
-    path?: string
+    path: string
     args?: Record<string, string | string[] | number | number[] | boolean>
 }
 
