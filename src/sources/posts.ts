@@ -3,7 +3,7 @@ import {
     GetPostBySlugRequestArgs,
     GetPostsRequestArgs,
     PostResponse,
-    PostsResponse
+    PostsResponse, WordPressUrl
 } from "../@types";
 
 import {wpFetchGet} from "./base";
@@ -17,7 +17,7 @@ const defaultFetchPostsArgs: GetPostsRequestArgs = {
     per_page: 10,
 }
 export const wpFetchPosts = async <T extends PostResponse>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     requestArgs: GetPostsRequestArgs = {}
 ): Promise<PostsResponse<T>> => {
 
@@ -49,7 +49,7 @@ export const wpFetchPosts = async <T extends PostResponse>(
 }
 
 export const wpFetchPostById = async <T extends PostResponse | null>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     requestArgs: GetPostByIdRequestArgs
 ): Promise<T | null> => {
     const {
@@ -65,7 +65,7 @@ export const wpFetchPostById = async <T extends PostResponse | null>(
 }
 
 export const wpFetchPostsBySlug = async <T extends PostResponse>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     args: GetPostBySlugRequestArgs
 ): Promise<PostsResponse<T>> => {
     const {

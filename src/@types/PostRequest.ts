@@ -5,7 +5,6 @@ import {
     PostType, TermId,
 } from "./index";
 
-
 export type GetPostsRequestArgs = {
     type?: PostType
     page?: number

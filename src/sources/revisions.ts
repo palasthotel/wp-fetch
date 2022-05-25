@@ -1,10 +1,12 @@
 import {
+    WordPressAuthenticatedUrl,
+    Authentication,
     GetRevisionRequestArgs,
     GetRevisionsRequestArgs,
+    PostId,
     RevisionResponse,
     RevisionsResponse
-} from "../@types/RevisionRequest";
-import {Authentication, PostId} from "../@types";
+} from "../@types";
 import {wpFetchGet} from "./base";
 
 const defaultFetchRevisionsArgs: GetRevisionsRequestArgs = {
@@ -13,8 +15,7 @@ const defaultFetchRevisionsArgs: GetRevisionsRequestArgs = {
     per_page: 10,
 }
 export const wpFetchRevisions = async <T extends RevisionResponse>(
-    wordpressUrl: string,
-    auth: Authentication,
+    wordpressUrl: WordPressAuthenticatedUrl,
     post: PostId,
     requestArgs: GetRevisionsRequestArgs = {},
 ) : Promise<RevisionsResponse<T>> => {
@@ -28,9 +29,8 @@ export const wpFetchRevisions = async <T extends RevisionResponse>(
     delete args.type;
 
     const response = await wpFetchGet<T[]>({
-        wordpressUrl,
+        wordpressUrl: wordpressUrl,
         path: `/wp/v2/${type}/${post}/revisions`,
-        auth,
         args: requestArgs,
     });
 
@@ -50,8 +50,7 @@ export const wpFetchRevisions = async <T extends RevisionResponse>(
 }
 
 export const wpFetchRevision = async <T extends RevisionResponse>(
-    wordpressUrl: string,
-    auth: Authentication,
+    wordpressUrl: WordPressAuthenticatedUrl,
     requestArgs: GetRevisionRequestArgs
 ): Promise<T | null> => {
     const {
@@ -62,7 +61,6 @@ export const wpFetchRevision = async <T extends RevisionResponse>(
     const response = await wpFetchGet<T>({
         wordpressUrl,
         path: `/wp/v2/${type}/${post}/revisions/${revision}`,
-        auth,
     });
 
     return (response?.data as T ) ?? null;

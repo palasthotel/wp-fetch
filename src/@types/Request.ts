@@ -4,11 +4,17 @@ export type Authentication = {
     password: string
 }
 
+export type WordPressAuthenticatedUrl = {
+    url: string
+    auth: Authentication
+}
+
+export type WordPressUrl = string | WordPressAuthenticatedUrl
+
 export type GetRequest = {
-    wordpressUrl: string
+    wordpressUrl: WordPressUrl
     path?: string
     args?: Record<string, string | string[] | number | number[] | boolean>
-    auth?: Authentication
 }
 
 export type GetResponse<T> = {

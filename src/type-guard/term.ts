@@ -1,6 +1,5 @@
 import {TermResponse} from "../@types";
 
-
 export const isTermResponse = (data: any): data is TermResponse => {
     return typeof data === "object" &&
         typeof data.id === "number" &&

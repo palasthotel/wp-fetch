@@ -6,7 +6,7 @@ export type RevisionSlug = string
 export type UserId = number
 export type UserSlug = string
 export type AuthorId = UserId
-export type MenuSlug = string
+
 export type TermId = number
 export type TaxonomySlug = string
 

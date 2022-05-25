@@ -1,5 +1,12 @@
 # Releases
 
+## [0.2.1] - 2022-05-25
+- authenticated urls possible for every call
+- moved menus to @palasthotel/headless package
+
+## [0.2.0] - 2022-05-25
+- added revisions
+
 ## [0.1.8] - 2022-05-18
 - added wpFetchUsers 
 - added wpFetchUser

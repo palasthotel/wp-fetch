@@ -1,8 +1,8 @@
-import {GetUsersRequestArgs, UserResponse, UsersResponse, UserId} from "../@types";
+import {GetUsersRequestArgs, UserId, UserResponse, UsersResponse, WordPressUrl} from "../@types";
 import {wpFetchGet} from "./base";
 
 export const wpFetchUsers = async <T extends UserResponse>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     requestArgs: GetUsersRequestArgs = {}
 ): Promise<UsersResponse<T>> => {
     const response = await wpFetchGet<T[]>({
@@ -27,7 +27,7 @@ export const wpFetchUsers = async <T extends UserResponse>(
 }
 
 export const wpFetchUser = async <T extends UserResponse>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     id: UserId
 ): Promise<T | null> => {
     const response = await wpFetchGet<T>({

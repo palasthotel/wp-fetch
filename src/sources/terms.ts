@@ -1,9 +1,9 @@
-import {GetTermRequestArgs, GetTermsRequestArgs, TermResponse, TermsResponse} from "../@types";
+import {GetTermRequestArgs, GetTermsRequestArgs, TermResponse, TermsResponse, WordPressUrl} from "../@types";
 import {isArrayOfTermResponse, isTermResponse} from "../type-guard";
 import {wpFetchGet} from "./base";
 
 export const wpFetchTerms = async <T extends TermResponse>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     args: GetTermsRequestArgs = {}
 ): Promise<TermsResponse<T>> => {
 
@@ -32,7 +32,7 @@ export const wpFetchTerms = async <T extends TermResponse>(
 }
 
 export const wpFetchTerm = async <T extends TermResponse>(
-    wordpressUrl: string,
+    wordpressUrl: WordPressUrl,
     args: GetTermRequestArgs
 ): Promise<T | null> => {
     const {

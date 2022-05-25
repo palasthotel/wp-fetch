@@ -1,6 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
 
 import {GetRequest, GetResponse} from "../@types";
+import {isAuthenticatedUrl} from "../type-guard";
 
 
 let instance:AxiosInstance|null = null;
@@ -18,7 +19,7 @@ export const getAxios = (): AxiosInstance => {
 
 export const wordPressGetJsonUrl = (request: GetRequest): string => {
     const {wordpressUrl, path} = request;
-    return `${wordpressUrl}/wp-json${path}`;
+    return `${isAuthenticatedUrl(wordpressUrl) ? wordpressUrl.url : wordpressUrl}/wp-json${path}`;
 }
 
 export const wpFetchGet = async <T>(request: GetRequest): Promise<GetResponse<T>|null> => {
@@ -27,8 +28,8 @@ export const wpFetchGet = async <T>(request: GetRequest): Promise<GetResponse<T>
         const config: AxiosRequestConfig = {
             params: request.args,
         }
-        if(request.auth) {
-            config.auth = request.auth;
+        if(isAuthenticatedUrl(request.wordpressUrl)) {
+            config.auth = request.wordpressUrl.auth;
         }
         const response = await getAxios().get( url, config);
         if (response.status !== 200) return null;

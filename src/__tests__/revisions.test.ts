@@ -1,17 +1,17 @@
 import {wpFetchRevision, wpFetchRevisions} from "../sources/revisions";
-import {Authentication} from "../@types";
+import {Authentication, WordPressAuthenticatedUrl} from "../@types";
 
-const wordpressTestUrl = "http://local.wp.palasthotel.de:8080/";
-
-const authentication: Authentication = {
-    username: "palasthotel",
-    password: "0pRJ VjsR 78rr A1GL HNxp 6gpE",
+const url: WordPressAuthenticatedUrl = {
+    url: "http://local.wp.palasthotel.de:8080/",
+    auth: {
+        username: "palasthotel",
+        password: "0pRJ VjsR 78rr A1GL HNxp 6gpE",
+    }
 }
 
 it("Should return revisions", async ()=> {
     const response = await wpFetchRevisions(
-        wordpressTestUrl,
-        authentication,
+        url,
         1,
     );
 
@@ -21,8 +21,7 @@ it("Should return revisions", async ()=> {
 
 it("Should return single revision", async ()=> {
     const response = await wpFetchRevision(
-        wordpressTestUrl,
-        authentication,
+        url,
         {
             post: 1,
             revision: 42,
