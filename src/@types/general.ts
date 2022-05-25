@@ -1,6 +1,8 @@
 export type PostId = number
 export type PostSlug = string
 export type PostType = string
+export type RevisionId = number
+export type RevisionSlug = string
 export type UserId = number
 export type UserSlug = string
 export type AuthorId = UserId

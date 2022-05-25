@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from "axios";
+import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
 
 import {GetRequest, GetResponse} from "../@types";
 
@@ -24,9 +24,13 @@ export const wordPressGetJsonUrl = (request: GetRequest): string => {
 export const wpFetchGet = async <T>(request: GetRequest): Promise<GetResponse<T>|null> => {
     try {
         const url = wordPressGetJsonUrl(request);
-        const response = await getAxios().get( url,{
+        const config: AxiosRequestConfig = {
             params: request.args,
-        });
+        }
+        if(request.auth) {
+            config.auth = request.auth;
+        }
+        const response = await getAxios().get( url, config);
         if (response.status !== 200) return null;
         const result: GetResponse<T> = {
             data: response.data,
