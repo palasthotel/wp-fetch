@@ -12,14 +12,14 @@ const getConnection = (): HeadlessConnection => {
     return instance;
 };
 
-export const useRequest = (fn: (config: HeadlessRequestConfig) => HeadlessRequestConfig) => {
+export const onRequest = (fn: (config: HeadlessRequestConfig) => HeadlessRequestConfig) => {
     return getConnection().interceptors.request.use(fn);
 }
 export const ejectRequest = (id: number) => {
     return getConnection().interceptors.request.eject(id);
 }
 
-export const useResponse = (fn: (response: HeadlessResponse) => HeadlessResponse | Promise<HeadlessResponse>) => {
+export const onResponse = (fn: (response: HeadlessResponse) => HeadlessResponse | Promise<HeadlessResponse>) => {
     return getConnection().interceptors.response.use(fn);
 }
 export const ejectResponse = (id: number) => {

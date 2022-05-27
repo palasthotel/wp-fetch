@@ -1,4 +1,4 @@
-import {ejectRequest, useRequest, wpFetchGet} from "../sources/base";
+import {ejectRequest, onRequest, wpFetchGet} from "../sources/base";
 
 describe('useRequest', function () {
 
@@ -11,7 +11,7 @@ describe('useRequest', function () {
     it("Should add parameters", async ()=>{
 
         let params = {};
-        useRequestIds.push(useRequest((config) => {
+        useRequestIds.push(onRequest((config) => {
             params = config.params;
             return config;
         }));

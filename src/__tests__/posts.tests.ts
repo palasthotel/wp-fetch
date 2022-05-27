@@ -2,7 +2,7 @@ import * as fs from "fs";
 import {wpFetchPostById, wpFetchPosts, wpFetchPostsBySlug} from "../sources/posts";
 import {buildHierarchy} from "../transformers";
 import {PostResponse} from "../@types";
-import {ejectRequest, useRequest} from "../sources/base";
+import {ejectRequest, onRequest} from "../sources/base";
 
 describe('wpFetchPosts', function () {
 
@@ -17,7 +17,7 @@ describe('wpFetchPosts', function () {
         it("Should should return posts", async () => {
 
             let requestUrl = ""
-            id = useRequest((config) => {
+            id = onRequest((config) => {
                 requestUrl = config.url ?? "";
                return config;
             });
@@ -29,7 +29,7 @@ describe('wpFetchPosts', function () {
 
             let requestUrl = ""
             let params = {};
-            id = useRequest((config) => {
+            id = onRequest((config) => {
                 requestUrl = config.url ?? "";
                 params = config.params;
                 return config;
@@ -49,7 +49,7 @@ describe('wpFetchPosts', function () {
 
             let requestUrl = ""
             let params = {};
-            id = useRequest((config) => {
+            id = onRequest((config) => {
                 requestUrl = config.url ?? "";
                 params = config.params;
                 return config;
@@ -72,7 +72,7 @@ describe('wpFetchPosts', function () {
         it("Should include single post by id", async () => {
             let requestUrl = ""
             let params = {};
-            id = useRequest((config) => {
+            id = onRequest((config) => {
                 requestUrl = config.url ?? "";
                 params = config.params;
                 return config;

@@ -1,7 +1,7 @@
 export {
     wpFetchGet,
-    useRequest,
-    useResponse,
+    onRequest,
+    onResponse,
     setHeader,
     ejectRequest,
     ejectResponse,

@@ -1,5 +1,5 @@
 import {wpFetchUsers} from "../sources/users";
-import {ejectRequest, useRequest} from "../sources/base";
+import {ejectRequest, onRequest} from "../sources/base";
 
 
 describe('wpFetchUsers', function () {
@@ -15,7 +15,7 @@ describe('wpFetchUsers', function () {
         it("Should should return users", async () => {
 
             let requestUrl = ""
-            useRequest((config) => {
+            onRequest((config) => {
                 requestUrl = config.url ?? "";
                 return config;
             });
