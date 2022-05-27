@@ -1,6 +1,6 @@
 {
   "name": "@palasthotel/wp-fetch",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Fetch data from a wordpress source. Works perfectly with headless plugin.",
   "main": "./lib/cjs/index.js",
   "types": "./lib/esm/index.d.ts",
