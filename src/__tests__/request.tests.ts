@@ -16,6 +16,11 @@ describe('useRequest', function () {
             return config;
         }));
 
+        useRequestIds.push(onRequest((config) => {
+            config.params = {...config?.params ?? {}, test:"works"};
+            return config;
+        }));
+
         await wpFetchGet({
             wordpressUrl: "test",
             path: "test",
@@ -25,5 +30,6 @@ describe('useRequest', function () {
         });
 
         expect(params).toHaveProperty("page",1 );
+        expect(params).toHaveProperty("test","works" );
     })
 });

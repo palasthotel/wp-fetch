@@ -1,14 +1,14 @@
 import {AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse} from "axios";
 
-export type HeadlessConnection = AxiosInstance
-export type HeadlessRequestConfig = AxiosRequestConfig & {
+export type WPConnection = AxiosInstance
+export type WPRequestConfig = AxiosRequestConfig & {
     url?: string
     method?: string
     params?: any
     headers?: AxiosRequestHeaders
     auth?: Authentication
 };
-export type HeadlessResponse = AxiosResponse
+export type WPResponse = AxiosResponse
 
 export type Authentication = {
     username: string

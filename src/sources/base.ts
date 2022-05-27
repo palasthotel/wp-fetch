@@ -1,25 +1,25 @@
 import axios, {AxiosRequestConfig} from "axios";
 
-import {HeadlessConnection, GetRequest, GetResponse, HeadlessRequestConfig, HeadlessResponse} from "../@types";
+import {WPConnection, GetRequest, GetResponse, WPRequestConfig, WPResponse} from "../@types";
 import {isAuthenticatedUrl} from "../type-guard";
 
-let instance: HeadlessConnection | null = null;
+let instance: WPConnection | null = null;
 
-const getConnection = (): HeadlessConnection => {
-    if (instance == null) {
+const getConnection = (newConnection: boolean = false): WPConnection => {
+    if (instance == null || newConnection) {
         instance = axios.create();
     }
     return instance;
 };
 
-export const onRequest = (fn: (config: HeadlessRequestConfig) => HeadlessRequestConfig) => {
+export const onRequest = (fn: (config: WPRequestConfig) => WPRequestConfig) => {
     return getConnection().interceptors.request.use(fn);
 }
 export const ejectRequest = (id: number) => {
     return getConnection().interceptors.request.eject(id);
 }
 
-export const onResponse = (fn: (response: HeadlessResponse) => HeadlessResponse | Promise<HeadlessResponse>) => {
+export const onResponse = (fn: (response: WPResponse) => WPResponse | Promise<WPResponse>) => {
     return getConnection().interceptors.response.use(fn);
 }
 export const ejectResponse = (id: number) => {
