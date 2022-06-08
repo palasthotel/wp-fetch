@@ -1,4 +1,4 @@
-import {AuthorId, ComaSeparatedIds, CommentId, Context, EntityMeta, PostId, UserId} from "./general";
+import {AuthorId, ComaSeparatedIds, CommentId, Context, EntityMeta, PostId, PostType, UserId} from "./general";
 
 export type GetCommentsRequestArgs = {
     context?: Context
@@ -34,7 +34,9 @@ export type CommentResponse = {
     author: AuthorId
     author_name: string
     author_url: string
-    content: string
+    content: {
+        rendered: string
+    }
     date: string
     date_gmt: string
     link: string
@@ -42,8 +44,20 @@ export type CommentResponse = {
     post: PostId
     status: string
     type: string
-    author_avatar_urls: unknown
+    author_avatar_urls: {
+        [size: string]: string
+    }
     meta: EntityMeta
+    _links: {
+        [key: string]: {
+            href: string
+            embeddable?: boolean
+            post_type?: PostType
+            count?: number
+            taxonomy?: string
+            name?: string
+        }[]
+    }
 }
 
 export type CommentEditResponse = CommentResponse & {
