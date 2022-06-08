@@ -1,5 +1,8 @@
 # Releases
 
+## [0.3.1] - 2022-06-08
+- added some exports and property types for comments
+
 ## [0.3.0] - 2022-06-08
 - added comments
 - onRequest and onResponse with priority config
