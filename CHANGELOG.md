@@ -1,5 +1,9 @@
 # Releases
 
+## [0.3.0] - 2022-06-08
+- added comments
+- onRequest and onResponse with priority config
+
 ## [0.2.1] - 2022-05-25
 - authenticated urls possible for every call
 - moved menus to @palasthotel/headless package

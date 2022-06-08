@@ -1,5 +1,5 @@
 import {
-    AuthorId,
+    AuthorId, EntityMeta,
     PostId,
     PostSlug,
     PostType, TermId,
@@ -80,7 +80,7 @@ export type PostResponse = {
     sticky: boolean
     template: string
     format: string
-    meta: Record<string, string|string[]|number|number[]>
+    meta: EntityMeta
     permalink: string | false
 
     categories: number[]

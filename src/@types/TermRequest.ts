@@ -1,4 +1,4 @@
-import {PostId, TaxonomySlug, TermId,} from "./index";
+import {EntityMeta, PostId, TaxonomySlug, TermId,} from "./index";
 
 export type TermsResponse<T extends TermResponse> = {
     terms: T[]
@@ -14,7 +14,7 @@ export type TermResponse = {
     slug: string
     taxonomy: TaxonomySlug
     parent?: TermId
-    meta: Record<string, string|string[]|number|number[]>
+    meta: EntityMeta
 }
 
 export type GetTermRequestArgs = {

@@ -8,6 +8,24 @@ export type WPRequestConfig = AxiosRequestConfig & {
     headers?: AxiosRequestHeaders
     auth?: Authentication
 };
+
+export type InterceptorId = number
+export type InterceptorConfig = {
+    priority?: number
+}
+
+export type RequestInterceptor = {
+    id: InterceptorId
+    fn: (config: WPRequestConfig) => WPRequestConfig
+    priority: number
+}
+
+export type ResponseInterceptor = {
+    id: InterceptorId
+    fn: (response: WPResponse) => WPResponse
+    priority: number
+}
+
 export type WPResponse = AxiosResponse
 
 export type Authentication = {

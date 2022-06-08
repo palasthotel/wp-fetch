@@ -1,4 +1,4 @@
-import {UserId, UserSlug} from "./general";
+import {EntityMeta, UserId, UserSlug} from "./general";
 
 export type GetUsersRequestArgs = {
     page?: number
@@ -27,7 +27,7 @@ export type UserResponse = {
     link: string
     slug: UserSlug
     avatar_urls: Record<string, string>
-    meta: Record<string, string | string[] | number | number[]>
+    meta: EntityMeta
     _links: {
         [key: string]: {
             href: string

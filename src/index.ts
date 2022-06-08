@@ -10,6 +10,7 @@ export {wpFetchPosts, wpFetchPostsBySlug, wpFetchPostById} from './sources/posts
 export {wpFetchRevisions, wpFetchRevision} from './sources/revisions';
 export {wpFetchTerms, wpFetchTerm} from './sources/terms';
 export {wpFetchUsers, wpFetchUser} from './sources/users';
-export {buildHierarchy, postsAsHierarchy, termsAsHierarchy} from './transformers';
+export {wpFetchComments, wpFetchComment} from './sources/comments';
+export {buildHierarchy, postsAsHierarchy, termsAsHierarchy, commentsAsHierarchy} from './transformers';
 export * from './@types';
 export * from './type-guard';
