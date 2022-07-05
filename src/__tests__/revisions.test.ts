@@ -1,5 +1,5 @@
 import {wpFetchRevision, wpFetchRevisions} from "../sources/revisions";
-import {Authentication, WordPressAuthenticatedUrl} from "../@types";
+import {WordPressAuthenticatedUrl} from "../@types";
 
 const url: WordPressAuthenticatedUrl = {
     url: "http://local.wp.palasthotel.de:8080/",

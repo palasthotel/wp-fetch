@@ -1,6 +1,6 @@
 import fs from "fs";
 import {commentsAsHierarchy} from "../transformers";
-import {CommentResponse} from "../@types/Comments";
+import {CommentResponse} from "../@types";
 
 describe('transform comments', function () {
     it("Should transform to hierarchy", async () => {
