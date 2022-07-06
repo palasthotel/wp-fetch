@@ -1,5 +1,8 @@
 # Releases
 
+## [0.4.0] - 2022-07-05
+- refactorings. don't really know why minor version update 🤔
+
 ## [0.3.1] - 2022-06-08
 - added some exports and property types for comments
 
