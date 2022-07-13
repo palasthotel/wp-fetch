@@ -3,7 +3,8 @@ import {
     GetPostBySlugRequestArgs,
     GetPostsRequestArgs,
     PostResponse,
-    PostsResponse, WordPressUrl
+    PostsResponse,
+    WordPressUrl
 } from "../@types";
 
 import {wpFetchGet} from "./base";
@@ -33,6 +34,7 @@ export const wpFetchPosts = async <T extends PostResponse>(
         path: `/wp/v2/${type}`,
         args,
     });
+
     if (response == null || !Array.isArray(response?.data)) {
         return {
             posts: [],

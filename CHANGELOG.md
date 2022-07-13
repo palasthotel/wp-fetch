@@ -1,5 +1,8 @@
 # Releases
 
+## [0.5.0] - 2022-07-05
+- alternative taxonomy query syntax
+
 ## [0.4.0] - 2022-07-05
 - refactorings. don't really know why minor version update 🤔
 

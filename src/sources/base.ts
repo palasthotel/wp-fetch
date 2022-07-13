@@ -1,4 +1,5 @@
 import axios, {AxiosRequestConfig} from "axios";
+import qs from 'qs';
 
 import {
     WPConnection,
@@ -24,7 +25,11 @@ let responseInterceptors: ResponseInterceptor[] = [];
 
 const getConnection = (newConnection: boolean = false): WPConnection => {
     if (instance == null || newConnection) {
-        instance = axios.create();
+        instance = axios.create({
+            paramsSerializer: (p) => {
+                return qs.stringify(p);
+            }
+        });
         instance.interceptors.request.use((config) => {
             requestInterceptors.forEach( ({fn}) => {
                 config = fn(config);

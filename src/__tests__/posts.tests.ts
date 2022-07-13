@@ -109,6 +109,18 @@ describe('wpFetchPosts', function () {
         expect(posts.posts[0]?.title?.rendered).toBe("Impressum");
     });
 
+    it("Should fetch from with tax query syntax", async () => {
+        const response = await  wpFetchPosts(url,{
+            categories: { operator: 'AND', terms: 1 },
+            page: 1,
+            per_page: 20,
+            tags: { operator: 'AND', terms: 55 },
+            type: 'posts'
+        });
+
+        expect(response.posts.length).toBeGreaterThan(0);
+    });
+
 });
 
 describe('transform posts', () => {
@@ -125,4 +137,4 @@ describe('transform posts', () => {
         expect(hierarchy[0].children.length).toBe(0);
         expect(hierarchy[1].children.length).toBe(1);
     });
-})
+});

@@ -43,7 +43,7 @@ export type WordPressUrl = string | WordPressAuthenticatedUrl
 export type GetRequest = {
     wordpressUrl: WordPressUrl
     path: string
-    args?: Record<string, string | string[] | number | number[] | boolean>
+    args?: Record<string, string | string[] | number | number[] | boolean | object>
 }
 
 export type GetResponse<T> = {

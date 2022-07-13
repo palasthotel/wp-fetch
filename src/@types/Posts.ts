@@ -5,7 +5,13 @@ import {
     PostType, TermId,
 } from "./index";
 
+export type TaxonomyQuery = TermId | string | {
+    operator: "AND" | "OR"
+    terms: TermId | string
+}
+
 export type GetPostsRequestArgs = {
+
     type?: PostType
     page?: number
     per_page?: number
@@ -24,11 +30,12 @@ export type GetPostsRequestArgs = {
     slug?: string
     status?: string
     tax_relation?: "AND" | "OR"
-    categories?: TermId | string
-    categories_exclude?: TermId | string
-    tags?: string
-    tags_exclude?: string
+    categories?: TaxonomyQuery
+    categories_exclude?: TaxonomyQuery
+    tags?: TaxonomyQuery
+    tags_exclude?: TaxonomyQuery
     sticky?: boolean
+
 }
 
 export type PostsResponse<T extends PostResponse> = {
