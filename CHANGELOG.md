@@ -1,5 +1,8 @@
 # Releases
 
+## [0.5.3] - 2022-09-02
+- bump dependencies
+
 ## [0.5.2] - 2022-09-02
 - nothing change. forget to build on 0.5.1
 
