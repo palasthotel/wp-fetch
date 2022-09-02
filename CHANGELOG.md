@@ -1,5 +1,8 @@
 # Releases
 
+## [0.5.2] - 2022-09-02
+- nothing change. forget to build on 0.5.1
+
 ## [0.5.1] - 2022-09-02
 - add link prop to TermResponse
 
