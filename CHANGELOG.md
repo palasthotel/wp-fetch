@@ -1,5 +1,8 @@
 # Releases
 
+## [0.5.1] - 2022-09-02
+- add link prop to TermResponse
+
 ## [0.5.0] - 2022-07-05
 - alternative taxonomy query syntax
 
