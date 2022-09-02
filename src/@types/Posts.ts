@@ -93,8 +93,6 @@ export type PostResponse = {
     categories: number[]
     tags: number[]
 
-    featured_media_url?: string | false
-
     _links: {
         [key: string]: {
             href: string

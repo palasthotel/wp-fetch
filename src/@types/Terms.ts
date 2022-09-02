@@ -10,6 +10,7 @@ export type TermResponse = {
     id: TermId
     count: number
     description: string
+    link: string
     name: string
     slug: string
     taxonomy: TaxonomySlug
