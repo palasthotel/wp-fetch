@@ -1,5 +1,8 @@
 # Releases
 
+## [0.5.4] - 2022-09-28
+- bump dependencies
+
 ## [0.5.3] - 2022-09-02
 - bump dependencies
 
