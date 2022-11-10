@@ -12,7 +12,9 @@ export type ComaSeparatedIds = string
 export type TermId = number
 export type TaxonomySlug = string
 
-export type EntityMeta = Record<string, string|string[]|number|number[]>
+export type EntityMeta = {
+    [key: string]: string | string[] | number | number[] | boolean | object
+}
 
 export type Context = "view" | "embed" | "edit"
 
